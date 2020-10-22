@@ -18,6 +18,8 @@ exports.up = async function(knex) {
         table.integer("species_id")
             .references("id")
             .inTable("species")
+            .onDelete("SET NULL")
+            .onUpdate("CASCADE")
 
     })
 
@@ -26,10 +28,16 @@ exports.up = async function(knex) {
             .integer("zoo_id")
                 .references("id")
                 .inTable("zoos")
+                .onDelete("CASCADE")
+                .onUpdate("CASCADE")
+                .notNull()
         table
             .integer("animal_id")
                 .references("id")
                 .inTable("animals")
+                .onDelete("CASCADE")
+                .onUpdate("CASCADE")
+                .notNull()
         table.date("arrival").notNull().defaultTo(knex.raw("current_timestamp"))
         table.date("departure")
         table.primary(["zoo_id", "animal_id"])

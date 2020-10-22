@@ -14,8 +14,16 @@ function findZooAnimals(zooID){
 	return db("zoos_animals as za")
 		.innerJoin("zoos as z", "z.id", "za.zoo_id")
 		.innerJoin("animals as a", "a.id", "za.animals_id")
+		.innerJoin("species as s", "s.id", "animals.species_id")
 		.where("z.id", zooID)
-		.select("a.*")
+		//.select("a.*")
+		.select([
+			"a.id",
+			"a.name",
+			"s.name as species_name",
+			"za.arrival",
+			"za.departure"
+		])
 
 }
 
