@@ -10,7 +10,17 @@ function findById(id) {
 		.first()
 }
 
+function findZooAnimals(zooID){
+	return db("zoos_animals as za")
+		.innerJoin("zoos as z", "z.id", "za.zoo_id")
+		.innerJoin("animals as a", "a.id", "za.animals_id")
+		.where("z.id", zooID)
+		.select("a.*")
+
+}
+
 module.exports = {
 	find,
 	findById,
+	findZooAnimals
 }
